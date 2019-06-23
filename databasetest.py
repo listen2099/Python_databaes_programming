@@ -3,6 +3,7 @@ from pymysql.cursors import DictCursor
 
 # host=None, user=None, password="", database=None, port=0
 conn = None
+cursor = None
 try:  # 连接处理
     conn = pymysql.connect('192.168.243.145', 'root', '123456', 'school')  # print(conn.ping(False))
     # cursor = conn.cursor()  # default
