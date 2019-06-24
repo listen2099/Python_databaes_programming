@@ -9,9 +9,15 @@ class ModelMeta(type):
         if not hasattr(attrs, '__table_name__'):
             attrs['__table_name__'] = name  # 可以对指定的类名做一写事情..
 
+        primary_keys = []
         for k, v in attrs.items():
             if isinstance(v, Field):
-                pass
+                if v.pk:
+                    primary_keys.append(v)
+                if not v.field_name:
+                    v.file_name = k
+
+        attrs['__pks__'] = primary_keys
 
         return super().__new__(cls, name, bases, attrs)
 
@@ -22,7 +28,7 @@ class Base(metaclass=ModelMeta):
 
 
 class Field:  # 描述字段
-    def __init__(self, field_name='id', pk=False, nullable=True):
+    def __init__(self, field_name='', pk=False, nullable=True):
         self.field_name = field_name
         self.pk = pk
         self.nullable = nullable
