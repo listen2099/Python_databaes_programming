@@ -6,6 +6,7 @@ class ModelMeta(type):
         print(bases)
         print(attrs)
         print('2--------------------------')
+        attrs['__table_name__'] = name  # 可以对指定的类名做一写事情..
         return super().__new__(cls, name, bases, attrs)
 
 
