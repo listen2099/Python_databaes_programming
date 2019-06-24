@@ -8,6 +8,11 @@ class ModelMeta(type):
         print('2--------------------------')
         if not hasattr(attrs, '__table_name__'):
             attrs['__table_name__'] = name  # 可以对指定的类名做一写事情..
+
+        for k, v in attrs.items():
+            if isinstance(v, Field):
+                pass
+
         return super().__new__(cls, name, bases, attrs)
 
 
@@ -26,6 +31,6 @@ class Field:  # 描述字段
 #  SQLAlchemy
 #  student
 class Student(Base):
-    id = Field()
-    name = Field()
+    id = Field(pk=True)
+    name = Field('USERNAME', nullable=False)
     age = Field()
