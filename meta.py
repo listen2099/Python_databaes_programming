@@ -1,3 +1,4 @@
+#  对象关系映射(ORM)
 class ModelMeta(type):
     def __new__(cls, name, bases, attrs):
         print('1--------------------------')
