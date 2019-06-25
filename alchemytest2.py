@@ -19,20 +19,7 @@ class Student(Base):  # class of table, 数据库中已经有表, 为了和这�
 
     def __repr__(self):
         return '<Student {} {} {}>'.format(self.id, self.name, self.age)
-# 3 创建实体类
 
-# s1 = Student()  # 创建一个实例
-# s1.age = 20
-# s1.name = 'tom'
-# print(s1)
-#
-# s2 = Student(id=5, name='jerry')  # 创建另一个实例
-# s2.age = 30
-# print(s2)
-
-Base.metadata.create_all(bind=engine)
-# Base.metadata.drop_all(bind=engine)
-# 这个是用来创建或删除表的,一般不这样用,一般都是操作已经有的表
 
 # 建立会话
 from sqlalchemy.orm import sessionmaker
@@ -52,6 +39,7 @@ s1.age = 30  # add以后还可以修改
 session.add_all([s1, s2])  # 同时加好几个实例
 
 try:
+    session.add(s1)
     session.commit()
 except Exception as e:
     print(e)

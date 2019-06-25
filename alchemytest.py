@@ -21,14 +21,14 @@ class Student(Base):  # class of table, 数据库中已经有表, 为了和这�
         return '<Student {} {} {}>'.format(self.id, self.name, self.age)
 # 3 创建实体类
 
-s1 = Student()  # 创建一个实例
-s1.age = 20
-s1.name = 'tom'
-print(s1)
-
-s2 = Student(id=5, name='jerry')  # 创建另一个实例
-s2.age = 30
-print(s2)
+# s1 = Student()  # 创建一个实例
+# s1.age = 20
+# s1.name = 'tom'
+# print(s1)
+#
+# s2 = Student(id=5, name='jerry')  # 创建另一个实例
+# s2.age = 30
+# print(s2)
 
 Base.metadata.create_all(bind=engine)
 # Base.metadata.drop_all(bind=engine)
