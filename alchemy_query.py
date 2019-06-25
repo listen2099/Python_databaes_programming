@@ -26,9 +26,29 @@ from sqlalchemy.orm import sessionmaker
 Session = sessionmaker(bind=engine)  # 得到Session的类
 session = Session()  # 得到session的实例
 
+# 检查查询
+query = session.query(Student)  # 无条件查询
+print(type(query), '1----------------------')
+for student in query:
+    print(student, '2----------------------')
+    print(type(student), '3----------------------')
 
 
+# student = session.query(Student).get(1)  # 按主键查询
+student = Student()
+student.id = 10
+student.name = 'sam'
+print(student)
 
+# 改
+student.age = 58  # update
+session.add(student)
+try:
+    session.commit()
+except Exception as e:
+    print(e)
+    session.rollback()
+print(student)
 
 
 
