@@ -34,9 +34,9 @@ for student in query:
     print(type(student), '3----------------------')
 
 
-# student = session.query(Student).get(1)  # 按主键查询
-student = Student()
-student.id = 10
+student = session.query(Student).get(10)  # 按主键查询,先查才能改
+#student = Student()
+student.id = 11
 student.name = 'sam'
 print(student)
 
@@ -50,6 +50,17 @@ except Exception as e:
     session.rollback()
 print(student)
 
+# 删除
+student = session.query(Student).get(10)  # 按主键查询,先查才能删除
+#student = Student()
+#student.id = 10
+session.delete(student)
+try:
+    session.commit()
+except Exception as e:
+    print(e)
+    session.rollback()
+print(student)
 
 
 
