@@ -28,18 +28,18 @@ print(type(Session))
 session = Session()  # 得到session的实例
 print(type(session))
 
-s1 = Student(name='tom', age=20)
+s1 = Student(name='tom', age=23)
 session.add(s1)
 
-s2 = Student(id=10, name='jerry', age=18)
-session.add(s2)
-
-s1.age = 30  # add以后还可以修改
-
-session.add_all([s1, s2])  # 同时加好几个实例
+# s2 = Student(id=10, name='jerry', age=18)
+# session.add(s2)
+#
+# s1.age = 31  # add以后还可以修改
+#
+# session.add_all([s1, s2])  # 同时加好几个实例
+# session.add(s1)
 
 try:
-    session.add(s1)
     session.commit()
 except Exception as e:
     print(e)
