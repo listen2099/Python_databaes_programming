@@ -7,7 +7,7 @@ class ModelMeta(type):
         print(bases)
         print(attrs)
         print('2--------------------------')
-        if not hasattr(attrs, '__table_name__'):
+        if '__table_name__' not in attrs.keys():
             attrs['__table_name__'] = name  # 可以对指定的类名做一写事情..
 
         primary_keys = []
