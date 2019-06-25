@@ -41,3 +41,4 @@ class Student(Base):
     id = Field(pk=True)
     name = Field('USERNAME', nullable=False)
     age = Field()
+
