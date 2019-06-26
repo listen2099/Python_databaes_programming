@@ -31,13 +31,15 @@ print(type(session))
 s1 = Student(name='tom', age=23)
 session.add(s1)
 
-# s2 = Student(id=10, name='jerry', age=18)
-# session.add(s2)
-#
-# s1.age = 31  # add以后还可以修改
-#
-# session.add_all([s1, s2])  # 同时加好几个实例
-# session.add(s1)
+s2 = Student(id=10, name='jerry', age=18)
+session.add(s2)
+
+s1.age = 31  # add以后还可以修改
+
+s3 = Student(id=1, name='add', age=1)
+
+session.add_all([s1, s2, s3])  # 同时加好几个实例
+session.add(s1)
 
 try:
     session.commit()
