@@ -67,4 +67,13 @@ show(query)
 query = session.query(Employees).filter(not_(Employees.emp_no < 10003))
 show(query)
 
+# in
+query = session.query(Employees).filter(Employees.emp_no.in_([10005, 10018]))
+show(query)
+query = session.query(Employees).filter(~Employees.emp_no.in_([10005, 10018]))
+show(query)
+
+# like
+query = session.query(Employees).filter(Employees.last_name.like('P%'))
+show(query)
 
