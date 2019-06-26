@@ -42,9 +42,29 @@ print(type(query))
 show(query)
 
 
+# 与
+from sqlalchemy import and_, or_, not_
+query = session.query(Employees).filter(Employees.emp_no > 10016).filter(Employees.emp_no < 10019)
+show(query)
 
+query = session.query(Employees).filter((Employees.emp_no > 10016) & (Employees.emp_no < 10019))
+show(query)
 
+query = session.query(Employees).filter(and_(Employees.emp_no > 10016, Employees.emp_no < 10019))
+show(query)
 
+# 或
+query = session.query(Employees).filter((Employees.emp_no < 10003) | (Employees.emp_no > 10018))
+show(query)
 
+query = session.query(Employees).filter(or_(Employees.emp_no < 10003, Employees.emp_no > 10018))
+show(query)
+
+# 非
+query = session.query(Employees).filter(~(Employees.emp_no < 10003))
+show(query)
+
+query = session.query(Employees).filter(not_(Employees.emp_no < 10003))
+show(query)
 
 
