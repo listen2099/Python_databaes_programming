@@ -23,8 +23,27 @@ class Employees(Base):  # class of table, 数据库中已经有表, 为了和这
     last_name = Column(String(64), nullable=False)
     gender = Column(Enum(Gender), nullable=False)
     hire_date = Column(Date, nullable=False)
+
     def __repr__(self):
         return '<EMP {} {} {}>'.format(self.emp_no, self.first_name, self.last_name)
+
+
+class Department(Base):
+    __tablename__ = 'departments'
+    dept_no = Column(String(4), primary_key=True)
+    dept_name = Column(String(40), nullable=False)
+
+    def __repr__(self):
+        return "Dept {} {}".format(self.dept_name, self.dept_no)
+
+
+class Dept_emp(Base):
+    __tablename__ = 'dept_emp'
+    emp_no = Column(Integer, primary_key=True)
+    dept_no = Column(String(4), primary_key=True)
+    from_date = Column(Date, nullable=False)
+    to_date = Column(Date, nullable=False)
+
 
 def show(emps):
     print('-' * 10)
@@ -76,4 +95,65 @@ show(query)
 # like
 query = session.query(Employees).filter(Employees.last_name.like('P%'))
 show(query)
+
+
+# order
+query = session.query(Employees).filter(Employees.last_name.like('P%')).order_by(Employees.emp_no.desc())
+show(query)
+
+# limit offset
+query = session.query(Employees).filter(Employees.last_name.like('P%')).\
+    order_by(Employees.emp_no.desc()).offset(2).limit(1)
+show(query)
+
+
+print(1, 'query', '!!!!!!!!!!!!!')
+print(query.first())  #
+print(2, 'query', '!!!!!!!!!!!!!')
+print(query.all())  #
+print(3, 'query', '!!!!!!!!!!!!!')
+print(query.one())  #
+print(query.limit(1).one())  #
+print(4, 'query', '!!!!!!!!!!!!!')
+print(query.count())
+print(query.count())
+
+
+# 聚合函数
+from sqlalchemy import func
+query = session.query(func.count(Employees.emp_no))
+print(query.all())
+print(query.first())
+print(query.one())
+print(query.scalar())  # one结果的第一个元素
+
+print(session.query(func.max(Employees.emp_no)).scalar())
+print(session.query(func.min(Employees.emp_no)).scalar())
+print(session.query(func.avg(Employees.emp_no)).scalar())
+
+# group
+print(session.query(Employees.gender, func.count(Employees.emp_no)).group_by(Employees.gender).all())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
