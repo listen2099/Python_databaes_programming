@@ -10,7 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()  # 基类, 元类被修改过
 # 2 创建基类
 
-from sqlalchemy import Column, Integer, String, Date, Enum
+from sqlalchemy import Column, Integer, String, Date, Enum, ForeignKey
 import enum
 class Gender(enum.Enum):
     M = 'M'
@@ -39,10 +39,13 @@ class Department(Base):
 
 class Dept_emp(Base):
     __tablename__ = 'dept_emp'
-    emp_no = Column(Integer, primary_key=True)
-    dept_no = Column(String(4), primary_key=True)
+    emp_no = Column(Integer, ForeignKey('employees.emp_no', ondelete='CASCADE'), primary_key=True)
+    dept_no = Column(String(4), ForeignKey('departments.dept_no', ondelete='CASCADE'), primary_key=True)
     from_date = Column(Date, nullable=False)
     to_date = Column(Date, nullable=False)
+
+    def __repr__(self):
+        return "Dept_emp {} {}".format(self.dept_no, self.emp_no)
 
 
 def show(emps):
@@ -50,6 +53,8 @@ def show(emps):
     for x in emps:
         print(x)
     print('-'*10, end='\n\n')
+
+
 
 # 建立会话
 from sqlalchemy.orm import sessionmaker
